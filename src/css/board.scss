@@ -1,0 +1,17 @@
+#board {
+  width: 100%;
+}
+
+.top-row {
+  display:flex;
+  gap: 1em;
+}
+
+#timeline   {
+  min-width: 70cqw;
+  min-height: 30em;
+}
+
+#bottom-row, #top-row {
+  padding: 1em;
+}
