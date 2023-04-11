@@ -13,7 +13,7 @@ import path from 'path';
 // });
 
 export default defineConfig({
-  base: '/',
+  base: '/web-dev-project-2/',
   server: {
     port: 3000,
   },
