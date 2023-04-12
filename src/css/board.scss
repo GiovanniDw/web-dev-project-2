@@ -9,9 +9,27 @@
 
 #timeline   {
   min-width: 70cqw;
-  min-height: 30em;
+  min-height: 20em;
 }
 
 #bottom-row, #top-row {
   padding: 1em;
+}
+
+.sequencer {
+  display: grid;
+
+}
+
+.note {
+
+
+}
+
+button.note.note-is-active {
+  background-color: #000;
+}
+
+button.note.row-is-active {
+  background-color: gray;
 }

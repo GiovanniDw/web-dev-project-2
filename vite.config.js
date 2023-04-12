@@ -42,6 +42,12 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  css: {
+    devSourcemap: true,
+    modules: {
+      scopeBehaviour: 'global'
+    }
+  },
   build: {
     outDir: 'docs',
     sourcemap: true,
@@ -49,3 +55,4 @@ export default defineConfig({
     optimizeDeps: {},
   },
 });
+

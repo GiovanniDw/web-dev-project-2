@@ -29,13 +29,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@vituum/vite-plugin-nunjucks", "npm:0.1.5"],\
+            ["classnames", "npm:2.3.2"],\
             ["dotenv", "npm:16.0.3"],\
             ["express", "npm:4.18.2"],\
             ["gsap", "npm:3.11.5"],\
             ["lit", "npm:2.7.2"],\
             ["lit-html", "npm:2.7.2"],\
             ["nodemon", "npm:2.0.22"],\
-            ["sass", "npm:1.61.0"],\
+            ["sass", "npm:1.62.0"],\
             ["tone", "npm:14.8.49"],\
             ["vite", "virtual:aeeac66a59b8ffbc65cedc0dee8532ea08e444adcb125dbd6c20b27b26fea28c0b1fcbedf6435acdc47d3c9040785b9e07d134b7aeca0e32240c160f7bfc85fc#npm:4.2.1"],\
             ["vite-express", "virtual:aeeac66a59b8ffbc65cedc0dee8532ea08e444adcb125dbd6c20b27b26fea28c0b1fcbedf6435acdc47d3c9040785b9e07d134b7aeca0e32240c160f7bfc85fc#npm:0.5.2"],\
@@ -649,6 +650,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/chownr-npm-2.0.0-638f1c9c61-c57cf9dd07.zip/node_modules/chownr/",\
           "packageDependencies": [\
             ["chownr", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["classnames", [\
+        ["npm:2.3.2", {\
+          "packageLocation": "./.yarn/cache/classnames-npm-2.3.2-d2fdae468d-2c62199789.zip/node_modules/classnames/",\
+          "packageDependencies": [\
+            ["classnames", "npm:2.3.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2431,10 +2441,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["sass", [\
-        ["npm:1.61.0", {\
-          "packageLocation": "./.yarn/cache/sass-npm-1.61.0-26fc20ae8e-31bfb3719f.zip/node_modules/sass/",\
+        ["npm:1.62.0", {\
+          "packageLocation": "./.yarn/cache/sass-npm-1.62.0-bf9dbdfb5f-d5f606aa25.zip/node_modules/sass/",\
           "packageDependencies": [\
-            ["sass", "npm:1.61.0"],\
+            ["sass", "npm:1.62.0"],\
             ["chokidar", "npm:3.5.3"],\
             ["immutable", "npm:4.3.0"],\
             ["source-map-js", "npm:1.0.2"]\
@@ -2897,7 +2907,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.21"],\
             ["resolve", "patch:resolve@npm%3A1.22.2#~builtin<compat/resolve>::version=1.22.2&hash=c3c19d"],\
             ["rollup", "npm:3.20.2"],\
-            ["sass", "npm:1.61.0"],\
+            ["sass", "npm:1.62.0"],\
             ["stylus", null],\
             ["sugarss", null],\
             ["terser", null]\
@@ -2986,13 +2996,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["web-dev-project-2", "workspace:."],\
             ["@vituum/vite-plugin-nunjucks", "npm:0.1.5"],\
+            ["classnames", "npm:2.3.2"],\
             ["dotenv", "npm:16.0.3"],\
             ["express", "npm:4.18.2"],\
             ["gsap", "npm:3.11.5"],\
             ["lit", "npm:2.7.2"],\
             ["lit-html", "npm:2.7.2"],\
             ["nodemon", "npm:2.0.22"],\
-            ["sass", "npm:1.61.0"],\
+            ["sass", "npm:1.62.0"],\
             ["tone", "npm:14.8.49"],\
             ["vite", "virtual:aeeac66a59b8ffbc65cedc0dee8532ea08e444adcb125dbd6c20b27b26fea28c0b1fcbedf6435acdc47d3c9040785b9e07d134b7aeca0e32240c160f7bfc85fc#npm:4.2.1"],\
             ["vite-express", "virtual:aeeac66a59b8ffbc65cedc0dee8532ea08e444adcb125dbd6c20b27b26fea28c0b1fcbedf6435acdc47d3c9040785b9e07d134b7aeca0e32240c160f7bfc85fc#npm:0.5.2"],\
