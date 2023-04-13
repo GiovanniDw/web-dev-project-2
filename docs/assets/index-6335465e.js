@@ -367,7 +367,6 @@ var classnames = {
 const classNames = classnamesExports;
 const $ = (e2) => document.querySelector(e2);
 const $$ = (e2) => document.querySelectorAll(e2);
-const $name = (e2) => document.getElementsByName(e2);
 const version = "14.8.49";
 const createExtendedExponentialRampToValueAutomationEvent = (value, endTime, insertTime) => {
   return { endTime, insertTime, type: "exponentialRampToValue", value };
@@ -7579,7 +7578,7 @@ function EQ(a2, b) {
 function clamp(value, min, max) {
   return Math.max(Math.min(value, max), min);
 }
-let Timeline$1 = class Timeline extends Tone {
+class Timeline extends Tone {
   constructor() {
     super();
     this.name = "Timeline";
@@ -7885,7 +7884,7 @@ let Timeline$1 = class Timeline extends Tone {
     this._timeline = [];
     return this;
   }
-};
+}
 const notifyNewContext = [];
 function onContextInit(cb) {
   notifyNewContext.push(cb);
@@ -8018,7 +8017,7 @@ class Context extends BaseContext {
     super();
     this.name = "Context";
     this._constants = /* @__PURE__ */ new Map();
-    this._timeouts = new Timeline$1();
+    this._timeouts = new Timeline();
     this._timeoutIds = 0;
     this._initialized = false;
     this._closeStarted = false;
@@ -9782,7 +9781,7 @@ class ToneWithContext extends Tone {
     return this;
   }
 }
-class StateTimeline extends Timeline$1 {
+class StateTimeline extends Timeline {
   constructor(initial = "stopped") {
     super();
     this.name = "StateTimeline";
@@ -9869,7 +9868,7 @@ class Param extends ToneWithContext {
     } else {
       this._param = this.input = options.param;
     }
-    this._events = new Timeline$1(1e3);
+    this._events = new Timeline(1e3);
     this._initialValue = this._param.defaultValue;
     this.units = options.units;
     this.convert = options.convert;
@@ -10856,7 +10855,7 @@ class TickParam extends Param {
   constructor() {
     super(optionsFromArguments(TickParam.getDefaults(), arguments, ["value"]));
     this.name = "TickParam";
-    this._events = new Timeline$1(Infinity);
+    this._events = new Timeline(Infinity);
     this._multiplier = 1;
     const options = optionsFromArguments(TickParam.getDefaults(), arguments, ["value"]);
     this._multiplier = options.multiplier;
@@ -11109,9 +11108,9 @@ class TickSource extends ToneWithContext {
     super(optionsFromArguments(TickSource.getDefaults(), arguments, ["frequency"]));
     this.name = "TickSource";
     this._state = new StateTimeline();
-    this._tickOffset = new Timeline$1();
-    this._ticksAtTime = new Timeline$1();
-    this._secondsAtTime = new Timeline$1();
+    this._tickOffset = new Timeline();
+    this._ticksAtTime = new Timeline();
+    this._secondsAtTime = new Timeline();
     const options = optionsFromArguments(TickSource.getDefaults(), arguments, ["frequency"]);
     this.frequency = new TickSignal({
       context: this.context,
@@ -11717,7 +11716,7 @@ class Draw extends ToneWithContext {
     this.name = "Draw";
     this.expiration = 0.25;
     this.anticipation = 8e-3;
-    this._events = new Timeline$1();
+    this._events = new Timeline();
     this._boundDrawLoop = this._drawLoop.bind(this);
     this._animationFrame = -1;
   }
@@ -12371,7 +12370,7 @@ class TimelineValue extends Tone {
   constructor(initialValue) {
     super();
     this.name = "TimelineValue";
-    this._timeline = new Timeline$1({ memory: 10 });
+    this._timeline = new Timeline({ memory: 10 });
     this._initialValue = initialValue;
   }
   /**
@@ -12662,7 +12661,7 @@ let Transport$1 = class Transport extends ToneWithContext {
     this._loopStart = 0;
     this._loopEnd = 0;
     this._scheduledEvents = {};
-    this._timeline = new Timeline$1();
+    this._timeline = new Timeline();
     this._repeatedEvents = new IntervalTimeline();
     this._syncedSignals = [];
     this._swingAmount = 0;
@@ -16829,13 +16828,6 @@ const setupBPM = (element, beatsPerMinute) => {
   pbmDown.addEventListener("click", () => setCounter(beatsPerMinute - 5));
   setCounter(beatsPerMinute);
 };
-const Timeline2 = (element) => {
-  const renderHTML = x`
-    <div class="panel">
-      hi
-    </div>`;
-  B(renderHTML, element);
-};
 const notes = ["F4", "Eb4", "C4", "Bb3", "Ab3", "F3"];
 const numRows = notes.length;
 const numCols = 8;
@@ -16850,7 +16842,6 @@ const appTemplate = x` <main>
     <div id="top-row">
       <div id="beats-per-minute"></div>
     </div>
-    <div id="timeline"></div>
     <div id="sequencer"></div>
     <div id="bottom-row">
       <button class="play-pause material-symbols-rounded" id="play-pause">
@@ -16894,7 +16885,6 @@ let started = false;
 const configLoop = () => {
   const repeat = (time) => {
     Transport2.seconds - time;
-    $$("#rowIndex");
     const allButtons = $$(".note");
     allButtons.forEach((button) => {
       const index = button.getAttribute("data-index");
@@ -16904,31 +16894,16 @@ const configLoop = () => {
         button.setAttribute("data-column-active", "false");
       }
     });
-    console.log(allButtons);
-    console.log(beat);
     grid.forEach((row, index) => {
       let synth = synths[index];
       let note = row[beat];
-      handleActiveColumn(row);
-      let rowPerNote = $name(note.note);
-      rowPerNote[note.index];
       if (note.isActive) {
         synth.triggerAttackRelease(note.note, noteInterval, time);
       }
     });
     beat = (beat + 1) % 8;
-    console.log(beat);
   };
   Transport2.scheduleRepeat(repeat, noteInterval);
-};
-const handleActiveColumn = (currentRowIndex, currentNote, button) => {
-  grid.forEach((row, rowIndex) => {
-    row.forEach((note, noteIndex) => {
-      if (currentRowIndex === rowIndex || currentNote === noteIndex) {
-        note.activeCol = !note.activeCol;
-      }
-    });
-  });
 };
 const sequencer = document.getElementById("sequencer");
 const makeSequencer = () => {
@@ -16987,8 +16962,7 @@ const configPlayButton = () => {
 };
 window.addEventListener("DOMContentLoaded", () => {
   setupBPM($("#beats-per-minute"), state.bpm);
-  Timeline2($("#timeline"));
   configPlayButton();
   makeSequencer();
 });
-//# sourceMappingURL=index-20c12b8c.js.map
+//# sourceMappingURL=index-6335465e.js.map
