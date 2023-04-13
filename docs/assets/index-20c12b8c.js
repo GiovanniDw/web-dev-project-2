@@ -39,8 +39,8 @@
     fetch(link.href, fetchOpts);
   }
 })();
-const main = "";
 const board = "";
+const main = "";
 /**
  * @license
  * Copyright 2021 Google LLC
@@ -309,7 +309,65 @@ const B = (t2, i2, s2) => {
   }
   return l2._$AI(t2), l2;
 };
+var classnamesExports = {};
+var classnames = {
+  get exports() {
+    return classnamesExports;
+  },
+  set exports(v2) {
+    classnamesExports = v2;
+  }
+};
+/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+(function(module) {
+  (function() {
+    var hasOwn = {}.hasOwnProperty;
+    function classNames2() {
+      var classes = [];
+      for (var i2 = 0; i2 < arguments.length; i2++) {
+        var arg = arguments[i2];
+        if (!arg)
+          continue;
+        var argType = typeof arg;
+        if (argType === "string" || argType === "number") {
+          classes.push(arg);
+        } else if (Array.isArray(arg)) {
+          if (arg.length) {
+            var inner = classNames2.apply(null, arg);
+            if (inner) {
+              classes.push(inner);
+            }
+          }
+        } else if (argType === "object") {
+          if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes("[native code]")) {
+            classes.push(arg.toString());
+            continue;
+          }
+          for (var key in arg) {
+            if (hasOwn.call(arg, key) && arg[key]) {
+              classes.push(key);
+            }
+          }
+        }
+      }
+      return classes.join(" ");
+    }
+    if (module.exports) {
+      classNames2.default = classNames2;
+      module.exports = classNames2;
+    } else {
+      window.classNames = classNames2;
+    }
+  })();
+})(classnames);
+const classNames = classnamesExports;
 const $ = (e2) => document.querySelector(e2);
+const $$ = (e2) => document.querySelectorAll(e2);
+const $name = (e2) => document.getElementsByName(e2);
 const version = "14.8.49";
 const createExtendedExponentialRampToValueAutomationEvent = (value, endTime, insertTime) => {
   return { endTime, insertTime, type: "exponentialRampToValue", value };
@@ -1088,7 +1146,7 @@ const createAudioBufferSourceNodeConstructor = (audioNodeConstructor2, createAud
 const createAudioBufferSourceNodeRendererFactory = (connectAudioParam2, createNativeAudioBufferSourceNode2, getNativeAudioNode2, renderAutomation2, renderInputsOfAudioNode2) => {
   return () => {
     const renderedNativeAudioBufferSourceNodes = /* @__PURE__ */ new WeakMap();
-    let start = null;
+    let start2 = null;
     let stop = null;
     const createAudioBufferSourceNode = async (proxy, nativeOfflineAudioContext) => {
       let nativeAudioBufferSourceNode = getNativeAudioNode2(proxy);
@@ -1106,8 +1164,8 @@ const createAudioBufferSourceNodeRendererFactory = (connectAudioParam2, createNa
           playbackRate: nativeAudioBufferSourceNode.playbackRate.value
         };
         nativeAudioBufferSourceNode = createNativeAudioBufferSourceNode2(nativeOfflineAudioContext, options);
-        if (start !== null) {
-          nativeAudioBufferSourceNode.start(...start);
+        if (start2 !== null) {
+          nativeAudioBufferSourceNode.start(...start2);
         }
         if (stop !== null) {
           nativeAudioBufferSourceNode.stop(stop);
@@ -1124,7 +1182,7 @@ const createAudioBufferSourceNodeRendererFactory = (connectAudioParam2, createNa
     };
     return {
       set start(value) {
-        start = value;
+        start2 = value;
       },
       set stop(value) {
         stop = value;
@@ -2945,7 +3003,7 @@ const createConstantSourceNodeConstructor = (audioNodeConstructor2, createAudioP
 const createConstantSourceNodeRendererFactory = (connectAudioParam2, createNativeConstantSourceNode2, getNativeAudioNode2, renderAutomation2, renderInputsOfAudioNode2) => {
   return () => {
     const renderedNativeConstantSourceNodes = /* @__PURE__ */ new WeakMap();
-    let start = null;
+    let start2 = null;
     let stop = null;
     const createConstantSourceNode = async (proxy, nativeOfflineAudioContext) => {
       let nativeConstantSourceNode = getNativeAudioNode2(proxy);
@@ -2958,8 +3016,8 @@ const createConstantSourceNodeRendererFactory = (connectAudioParam2, createNativ
           offset: nativeConstantSourceNode.offset.value
         };
         nativeConstantSourceNode = createNativeConstantSourceNode2(nativeOfflineAudioContext, options);
-        if (start !== null) {
-          nativeConstantSourceNode.start(start);
+        if (start2 !== null) {
+          nativeConstantSourceNode.start(start2);
         }
         if (stop !== null) {
           nativeConstantSourceNode.stop(stop);
@@ -2976,7 +3034,7 @@ const createConstantSourceNodeRendererFactory = (connectAudioParam2, createNativ
     };
     return {
       set start(value) {
-        start = value;
+        start2 = value;
       },
       set stop(value) {
         stop = value;
@@ -4114,24 +4172,24 @@ const assignNativeAudioNodeAudioParamValue = (nativeAudioNode, options, audioPar
   }
 };
 const wrapAudioBufferSourceNodeStartMethodConsecutiveCalls = (nativeAudioBufferSourceNode) => {
-  nativeAudioBufferSourceNode.start = ((start) => {
+  nativeAudioBufferSourceNode.start = ((start2) => {
     let isScheduled = false;
     return (when = 0, offset = 0, duration) => {
       if (isScheduled) {
         throw createInvalidStateError();
       }
-      start.call(nativeAudioBufferSourceNode, when, offset, duration);
+      start2.call(nativeAudioBufferSourceNode, when, offset, duration);
       isScheduled = true;
     };
   })(nativeAudioBufferSourceNode.start);
 };
 const wrapAudioScheduledSourceNodeStartMethodNegativeParameters = (nativeAudioScheduledSourceNode) => {
-  nativeAudioScheduledSourceNode.start = ((start) => {
+  nativeAudioScheduledSourceNode.start = ((start2) => {
     return (when = 0, offset = 0, duration) => {
       if (typeof duration === "number" && duration < 0 || offset < 0 || when < 0) {
         throw new RangeError("The parameters can't be negative.");
       }
-      start.call(nativeAudioScheduledSourceNode, when, offset, duration);
+      start2.call(nativeAudioScheduledSourceNode, when, offset, duration);
     };
   })(nativeAudioScheduledSourceNode.start);
 };
@@ -6099,7 +6157,7 @@ const createOscillatorNodeRendererFactory = (connectAudioParam2, createNativeOsc
   return () => {
     const renderedNativeOscillatorNodes = /* @__PURE__ */ new WeakMap();
     let periodicWave = null;
-    let start = null;
+    let start2 = null;
     let stop = null;
     const createOscillatorNode = async (proxy, nativeOfflineAudioContext) => {
       let nativeOscillatorNode = getNativeAudioNode2(proxy);
@@ -6115,8 +6173,8 @@ const createOscillatorNodeRendererFactory = (connectAudioParam2, createNativeOsc
           type: nativeOscillatorNode.type
         };
         nativeOscillatorNode = createNativeOscillatorNode2(nativeOfflineAudioContext, options);
-        if (start !== null) {
-          nativeOscillatorNode.start(start);
+        if (start2 !== null) {
+          nativeOscillatorNode.start(start2);
         }
         if (stop !== null) {
           nativeOscillatorNode.stop(stop);
@@ -6138,7 +6196,7 @@ const createOscillatorNodeRendererFactory = (connectAudioParam2, createNativeOsc
         periodicWave = value;
       },
       set start(value) {
-        start = value;
+        start2 = value;
       },
       set stop(value) {
         stop = value;
@@ -6962,14 +7020,14 @@ const testAudioWorkletNodeOptionsClonability = (audioWorkletNodeOptions) => {
   }
 };
 const wrapAudioBufferSourceNodeStartMethodOffsetClamping = (nativeAudioBufferSourceNode) => {
-  nativeAudioBufferSourceNode.start = ((start) => {
+  nativeAudioBufferSourceNode.start = ((start2) => {
     return (when = 0, offset = 0, duration) => {
       const buffer = nativeAudioBufferSourceNode.buffer;
       const clampedOffset = buffer === null ? offset : Math.min(buffer.duration, offset);
       if (buffer !== null && clampedOffset > buffer.duration - 0.5 / nativeAudioBufferSourceNode.context.sampleRate) {
-        start.call(nativeAudioBufferSourceNode, when, 0, 0);
+        start2.call(nativeAudioBufferSourceNode, when, 0, 0);
       } else {
-        start.call(nativeAudioBufferSourceNode, when, clampedOffset, duration);
+        start2.call(nativeAudioBufferSourceNode, when, clampedOffset, duration);
       }
     };
   })(nativeAudioBufferSourceNode.start);
@@ -8315,9 +8373,9 @@ class Context extends BaseContext {
    * Is invoked from the clock source
    */
   _timeoutLoop() {
-    const now2 = this.now();
+    const now = this.now();
     let firstEvent = this._timeouts.peek();
-    while (this._timeouts.length && firstEvent && firstEvent.time <= now2) {
+    while (this._timeouts.length && firstEvent && firstEvent.time <= now) {
       firstEvent.callback();
       this._timeouts.shift();
       firstEvent = this._timeouts.peek();
@@ -8332,11 +8390,11 @@ class Context extends BaseContext {
    */
   setTimeout(fn, timeout) {
     this._timeoutIds++;
-    const now2 = this.now();
+    const now = this.now();
     this._timeouts.add({
       callback: fn,
       id: this._timeoutIds,
-      time: now2 + timeout
+      time: now + timeout
     });
     return this._timeoutIds;
   }
@@ -8364,14 +8422,14 @@ class Context extends BaseContext {
   setInterval(fn, interval) {
     const id = ++this._timeoutIds;
     const intervalFn = () => {
-      const now2 = this.now();
+      const now = this.now();
       this._timeouts.add({
         callback: () => {
           fn();
           intervalFn();
         },
         id,
-        time: now2 + interval
+        time: now + interval
       });
     };
     intervalFn();
@@ -8699,9 +8757,9 @@ class ToneAudioBuffer extends Tone {
    * @param start The time to start the slice
    * @param end The end time to slice. If none is given will default to the end of the buffer
    */
-  slice(start, end = this.duration) {
+  slice(start2, end = this.duration) {
     assert(this.loaded, "Buffer is not loaded");
-    const startSamples = Math.floor(start * this.sampleRate);
+    const startSamples = Math.floor(start2 * this.sampleRate);
     const endSamples = Math.floor(end * this.sampleRate);
     assert(startSamples < endSamples, "The start time must be less than the end time");
     const length = endSamples - startSamples;
@@ -8929,6 +8987,9 @@ function setContext(context, disposeOld = false) {
   } else {
     globalContext = context;
   }
+}
+function start() {
+  return globalContext.resume();
 }
 if (theWindow && !theWindow.TONE_SILENCE_LOGGING) {
   let prefix = "v";
@@ -9307,6 +9368,9 @@ class TimeClass extends TimeBaseClass {
   _now() {
     return this.context.now();
   }
+}
+function Time(value, units) {
+  return new TimeClass(getContext(), value, units);
 }
 class FrequencyClass extends TimeClass {
   constructor() {
@@ -9822,8 +9886,8 @@ class Param extends ToneWithContext {
     });
   }
   get value() {
-    const now2 = this.now();
-    return this.getValueAtTime(now2);
+    const now = this.now();
+    return this.getValueAtTime(now);
   }
   set value(value) {
     this.cancelScheduledValues(this.now());
@@ -10103,14 +10167,14 @@ class Param extends ToneWithContext {
    * all of the events which are scheduled on this Param onto the passed in param.
    */
   apply(param) {
-    const now2 = this.context.currentTime;
-    param.setValueAtTime(this.getValueAtTime(now2), now2);
-    const previousEvent = this._events.get(now2);
+    const now = this.context.currentTime;
+    param.setValueAtTime(this.getValueAtTime(now), now);
+    const previousEvent = this._events.get(now);
     if (previousEvent && previousEvent.type === "setTargetAtTime") {
       const nextEvent = this._events.getAfter(previousEvent.time);
-      const endTime = nextEvent ? nextEvent.time : now2 + 2;
-      const subdivisions = (endTime - now2) / 10;
-      for (let i2 = now2; i2 < endTime; i2 += subdivisions) {
+      const endTime = nextEvent ? nextEvent.time : now + 2;
+      const subdivisions = (endTime - now) / 10;
+      for (let i2 = now; i2 < endTime; i2 += subdivisions) {
         param.linearRampToValueAtTime(this.getValueAtTime(i2), i2);
       }
     }
@@ -11186,9 +11250,9 @@ class TickSource extends ToneWithContext {
     return this.getSecondsAtTime(this.now());
   }
   set seconds(s2) {
-    const now2 = this.now();
-    const ticks = this.frequency.timeToTicks(s2, now2);
-    this.setTicksAtTime(ticks, now2);
+    const now = this.now();
+    const ticks = this.frequency.timeToTicks(s2, now);
+    this.setTicksAtTime(ticks, now);
   }
   /**
    * Return the elapsed seconds at the given time.
@@ -11604,62 +11668,6 @@ class ToneAudioBuffers extends Tone {
     return this;
   }
 }
-class MidiClass extends FrequencyClass {
-  constructor() {
-    super(...arguments);
-    this.name = "MidiClass";
-    this.defaultUnits = "midi";
-  }
-  /**
-   * Returns the value of a frequency in the current units
-   */
-  _frequencyToUnits(freq) {
-    return ftom(super._frequencyToUnits(freq));
-  }
-  /**
-   * Returns the value of a tick in the current time units
-   */
-  _ticksToUnits(ticks) {
-    return ftom(super._ticksToUnits(ticks));
-  }
-  /**
-   * Return the value of the beats in the current units
-   */
-  _beatsToUnits(beats) {
-    return ftom(super._beatsToUnits(beats));
-  }
-  /**
-   * Returns the value of a second in the current units
-   */
-  _secondsToUnits(seconds) {
-    return ftom(super._secondsToUnits(seconds));
-  }
-  /**
-   * Return the value of the frequency as a MIDI note
-   * @example
-   * Tone.Midi(60).toMidi(); // 60
-   */
-  toMidi() {
-    return this.valueOf();
-  }
-  /**
-   * Return the value of the frequency as a MIDI note
-   * @example
-   * Tone.Midi(60).toFrequency(); // 261.6255653005986
-   */
-  toFrequency() {
-    return mtof(this.toMidi());
-  }
-  /**
-   * Transposes the frequency by the given number of semitones.
-   * @return A new transposed MidiClass
-   * @example
-   * Tone.Midi("A4").transpose(3); // "C5"
-   */
-  transpose(interval) {
-    return new MidiClass(this.context, this.toMidi() + interval);
-  }
-}
 class TicksClass extends TransportTimeClass {
   constructor() {
     super(...arguments);
@@ -11746,10 +11754,10 @@ class Draw extends ToneWithContext {
    * The draw loop
    */
   _drawLoop() {
-    const now2 = this.context.currentTime;
-    while (this._events.length && this._events.peek().time - this.anticipation <= now2) {
+    const now = this.context.currentTime;
+    while (this._events.length && this._events.peek().time - this.anticipation <= now) {
       const event = this._events.shift();
-      if (event && now2 - event.time <= this.expiration) {
+      if (event && now - event.time <= this.expiration) {
         event.callback();
       }
     }
@@ -12970,8 +12978,8 @@ let Transport$1 = class Transport extends ToneWithContext {
    * Setting the value will jump to that position right away.
    */
   get position() {
-    const now2 = this.now();
-    const ticks = this._clock.getTicksAtTime(now2);
+    const now = this.now();
+    const ticks = this._clock.getTicksAtTime(now);
     return new TicksClass(this.context, ticks).toBarsBeatsSixteenths();
   }
   set position(progress) {
@@ -12986,8 +12994,8 @@ let Transport$1 = class Transport extends ToneWithContext {
     return this._clock.seconds;
   }
   set seconds(s2) {
-    const now2 = this.now();
-    const ticks = this._clock.frequency.timeToTicks(s2, now2);
+    const now = this.now();
+    const ticks = this._clock.frequency.timeToTicks(s2, now);
     this.ticks = ticks;
   }
   /**
@@ -12996,8 +13004,8 @@ let Transport$1 = class Transport extends ToneWithContext {
    */
   get progress() {
     if (this.loop) {
-      const now2 = this.now();
-      const ticks = this._clock.getTicksAtTime(now2);
+      const now = this.now();
+      const ticks = this._clock.getTicksAtTime(now);
       return (ticks - this._loopStart) / (this._loopEnd - this._loopStart);
     } else {
       return 0;
@@ -13011,17 +13019,17 @@ let Transport$1 = class Transport extends ToneWithContext {
   }
   set ticks(t2) {
     if (this._clock.ticks !== t2) {
-      const now2 = this.now();
+      const now = this.now();
       if (this.state === "started") {
-        const ticks = this._clock.getTicksAtTime(now2);
-        const remainingTick = this._clock.frequency.getDurationOfTicks(Math.ceil(ticks) - ticks, now2);
-        const time = now2 + remainingTick;
+        const ticks = this._clock.getTicksAtTime(now);
+        const remainingTick = this._clock.frequency.getDurationOfTicks(Math.ceil(ticks) - ticks, now);
+        const time = now + remainingTick;
         this.emit("stop", time);
         this._clock.setTicksAtTime(t2, time);
         this.emit("start", time, this._clock.getSecondsAtTime(time));
       } else {
-        this.emit("ticks", now2);
-        this._clock.setTicksAtTime(t2, now2);
+        this.emit("ticks", now);
+        this._clock.setTicksAtTime(t2, now);
       }
     }
   }
@@ -13073,10 +13081,10 @@ let Transport$1 = class Transport extends ToneWithContext {
     if (this.state !== "started") {
       return 0;
     } else {
-      const now2 = this.now();
-      const transportPos = this.getTicksAtTime(now2);
+      const now = this.now();
+      const transportPos = this.getTicksAtTime(now);
       const remainingTicks = subdivision - transportPos % subdivision;
-      return this._clock.nextTickTime(remainingTicks, now2);
+      return this._clock.nextTickTime(remainingTicks, now);
     }
   }
   /**
@@ -13089,9 +13097,9 @@ let Transport$1 = class Transport extends ToneWithContext {
    * 			Otherwise it will be computed based on their current values.
    */
   syncSignal(signal, ratio) {
-    const now2 = this.now();
+    const now = this.now();
     let source = this.bpm;
-    let sourceValue = 1 / (60 / source.getValueAtTime(now2) / this.PPQ);
+    let sourceValue = 1 / (60 / source.getValueAtTime(now) / this.PPQ);
     let nodes = [];
     if (signal.units === "time") {
       const scaleFactor = 1 / 64 / sourceValue;
@@ -13104,8 +13112,8 @@ let Transport$1 = class Transport extends ToneWithContext {
       nodes = [scaleBefore, reciprocal, scaleAfter];
     }
     if (!ratio) {
-      if (signal.getValueAtTime(now2) !== 0) {
-        ratio = signal.getValueAtTime(now2) / sourceValue;
+      if (signal.getValueAtTime(now) !== 0) {
+        ratio = signal.getValueAtTime(now) / sourceValue;
       } else {
         ratio = 0;
       }
@@ -14454,9 +14462,9 @@ class FatOscillator extends Source {
   set spread(spread) {
     this._spread = spread;
     if (this._oscillators.length > 1) {
-      const start = -spread / 2;
+      const start2 = -spread / 2;
       const step = spread / (this._oscillators.length - 1);
-      this._forEach((osc, i2) => osc.detune.value = start + step * i2);
+      this._forEach((osc, i2) => osc.detune.value = start2 + step * i2);
     }
   }
   /**
@@ -14781,10 +14789,10 @@ class OmniOscillator extends Source {
     if (oscType !== this._sourceType) {
       this._sourceType = oscType;
       const OscConstructor = OmniOscillatorSourceMap[oscType];
-      const now2 = this.now();
+      const now = this.now();
       if (this._oscillator) {
         const oldOsc = this._oscillator;
-        oldOsc.stop(now2);
+        oldOsc.stop(now);
         this.context.setTimeout(() => oldOsc.dispose(), this.blockTime);
       }
       this._oscillator = new OscConstructor({
@@ -14795,7 +14803,7 @@ class OmniOscillator extends Source {
       this._oscillator.connect(this.output);
       this._oscillator.onstop = () => this.onstop(this);
       if (this.state === "started") {
-        this._oscillator.start(now2);
+        this._oscillator.start(now);
       }
     }
   }
@@ -15255,14 +15263,14 @@ class Player extends Source {
   }
   set playbackRate(rate) {
     this._playbackRate = rate;
-    const now2 = this.now();
-    const stopEvent = this._state.getNextState("stopped", now2);
+    const now = this.now();
+    const stopEvent = this._state.getNextState("stopped", now);
     if (stopEvent && stopEvent.implicitEnd) {
       this._state.cancel(stopEvent.time);
       this._activeSources.forEach((source) => source.cancelStop());
     }
     this._activeSources.forEach((source) => {
-      source.playbackRate.setValueAtTime(rate, now2);
+      source.playbackRate.setValueAtTime(rate, now);
     });
   }
   /**
@@ -16210,258 +16218,6 @@ const feedbackCombFilter = (
 `
 );
 registerProcessor(workletName$1, feedbackCombFilter);
-class PolySynth extends Instrument {
-  constructor() {
-    super(optionsFromArguments(PolySynth.getDefaults(), arguments, ["voice", "options"]));
-    this.name = "PolySynth";
-    this._availableVoices = [];
-    this._activeVoices = [];
-    this._voices = [];
-    this._gcTimeout = -1;
-    this._averageActiveVoices = 0;
-    this._syncedRelease = (time) => this.releaseAll(time);
-    const options = optionsFromArguments(PolySynth.getDefaults(), arguments, ["voice", "options"]);
-    assert(!isNumber(options.voice), "DEPRECATED: The polyphony count is no longer the first argument.");
-    const defaults = options.voice.getDefaults();
-    this.options = Object.assign(defaults, options.options);
-    this.voice = options.voice;
-    this.maxPolyphony = options.maxPolyphony;
-    this._dummyVoice = this._getNextAvailableVoice();
-    const index = this._voices.indexOf(this._dummyVoice);
-    this._voices.splice(index, 1);
-    this._gcTimeout = this.context.setInterval(this._collectGarbage.bind(this), 1);
-  }
-  static getDefaults() {
-    return Object.assign(Instrument.getDefaults(), {
-      maxPolyphony: 32,
-      options: {},
-      voice: Synth
-    });
-  }
-  /**
-   * The number of active voices.
-   */
-  get activeVoices() {
-    return this._activeVoices.length;
-  }
-  /**
-   * Invoked when the source is done making sound, so that it can be
-   * readded to the pool of available voices
-   */
-  _makeVoiceAvailable(voice) {
-    this._availableVoices.push(voice);
-    const activeVoiceIndex = this._activeVoices.findIndex((e2) => e2.voice === voice);
-    this._activeVoices.splice(activeVoiceIndex, 1);
-  }
-  /**
-   * Get an available voice from the pool of available voices.
-   * If one is not available and the maxPolyphony limit is reached,
-   * steal a voice, otherwise return null.
-   */
-  _getNextAvailableVoice() {
-    if (this._availableVoices.length) {
-      return this._availableVoices.shift();
-    } else if (this._voices.length < this.maxPolyphony) {
-      const voice = new this.voice(Object.assign(this.options, {
-        context: this.context,
-        onsilence: this._makeVoiceAvailable.bind(this)
-      }));
-      assert(voice instanceof Monophonic, "Voice must extend Monophonic class");
-      voice.connect(this.output);
-      this._voices.push(voice);
-      return voice;
-    } else {
-      warn("Max polyphony exceeded. Note dropped.");
-    }
-  }
-  /**
-   * Occasionally check if there are any allocated voices which can be cleaned up.
-   */
-  _collectGarbage() {
-    this._averageActiveVoices = Math.max(this._averageActiveVoices * 0.95, this.activeVoices);
-    if (this._availableVoices.length && this._voices.length > Math.ceil(this._averageActiveVoices + 1)) {
-      const firstAvail = this._availableVoices.shift();
-      const index = this._voices.indexOf(firstAvail);
-      this._voices.splice(index, 1);
-      if (!this.context.isOffline) {
-        firstAvail.dispose();
-      }
-    }
-  }
-  /**
-   * Internal method which triggers the attack
-   */
-  _triggerAttack(notes, time, velocity) {
-    notes.forEach((note) => {
-      const midiNote = new MidiClass(this.context, note).toMidi();
-      const voice = this._getNextAvailableVoice();
-      if (voice) {
-        voice.triggerAttack(note, time, velocity);
-        this._activeVoices.push({
-          midi: midiNote,
-          voice,
-          released: false
-        });
-        this.log("triggerAttack", note, time);
-      }
-    });
-  }
-  /**
-   * Internal method which triggers the release
-   */
-  _triggerRelease(notes, time) {
-    notes.forEach((note) => {
-      const midiNote = new MidiClass(this.context, note).toMidi();
-      const event = this._activeVoices.find(({ midi, released }) => midi === midiNote && !released);
-      if (event) {
-        event.voice.triggerRelease(time);
-        event.released = true;
-        this.log("triggerRelease", note, time);
-      }
-    });
-  }
-  /**
-   * Schedule the attack/release events. If the time is in the future, then it should set a timeout
-   * to wait for just-in-time scheduling
-   */
-  _scheduleEvent(type, notes, time, velocity) {
-    assert(!this.disposed, "Synth was already disposed");
-    if (time <= this.now()) {
-      if (type === "attack") {
-        this._triggerAttack(notes, time, velocity);
-      } else {
-        this._triggerRelease(notes, time);
-      }
-    } else {
-      this.context.setTimeout(() => {
-        if (!this.disposed) {
-          this._scheduleEvent(type, notes, time, velocity);
-        }
-      }, time - this.now());
-    }
-  }
-  /**
-   * Trigger the attack portion of the note
-   * @param  notes The notes to play. Accepts a single Frequency or an array of frequencies.
-   * @param  time  The start time of the note.
-   * @param velocity The velocity of the note.
-   * @example
-   * const synth = new Tone.PolySynth(Tone.FMSynth).toDestination();
-   * // trigger a chord immediately with a velocity of 0.2
-   * synth.triggerAttack(["Ab3", "C4", "F5"], Tone.now(), 0.2);
-   */
-  triggerAttack(notes, time, velocity) {
-    if (!Array.isArray(notes)) {
-      notes = [notes];
-    }
-    const computedTime = this.toSeconds(time);
-    this._scheduleEvent("attack", notes, computedTime, velocity);
-    return this;
-  }
-  /**
-   * Trigger the release of the note. Unlike monophonic instruments,
-   * a note (or array of notes) needs to be passed in as the first argument.
-   * @param  notes The notes to play. Accepts a single Frequency or an array of frequencies.
-   * @param  time  When the release will be triggered.
-   * @example
-   * @example
-   * const poly = new Tone.PolySynth(Tone.AMSynth).toDestination();
-   * poly.triggerAttack(["Ab3", "C4", "F5"]);
-   * // trigger the release of the given notes.
-   * poly.triggerRelease(["Ab3", "C4"], "+1");
-   * poly.triggerRelease("F5", "+3");
-   */
-  triggerRelease(notes, time) {
-    if (!Array.isArray(notes)) {
-      notes = [notes];
-    }
-    const computedTime = this.toSeconds(time);
-    this._scheduleEvent("release", notes, computedTime);
-    return this;
-  }
-  /**
-   * Trigger the attack and release after the specified duration
-   * @param  notes The notes to play. Accepts a single  Frequency or an array of frequencies.
-   * @param  duration the duration of the note
-   * @param  time  if no time is given, defaults to now
-   * @param  velocity the velocity of the attack (0-1)
-   * @example
-   * const poly = new Tone.PolySynth(Tone.AMSynth).toDestination();
-   * // can pass in an array of durations as well
-   * poly.triggerAttackRelease(["Eb3", "G4", "Bb4", "D5"], [4, 3, 2, 1]);
-   */
-  triggerAttackRelease(notes, duration, time, velocity) {
-    const computedTime = this.toSeconds(time);
-    this.triggerAttack(notes, computedTime, velocity);
-    if (isArray(duration)) {
-      assert(isArray(notes), "If the duration is an array, the notes must also be an array");
-      notes = notes;
-      for (let i2 = 0; i2 < notes.length; i2++) {
-        const d2 = duration[Math.min(i2, duration.length - 1)];
-        const durationSeconds = this.toSeconds(d2);
-        assert(durationSeconds > 0, "The duration must be greater than 0");
-        this.triggerRelease(notes[i2], computedTime + durationSeconds);
-      }
-    } else {
-      const durationSeconds = this.toSeconds(duration);
-      assert(durationSeconds > 0, "The duration must be greater than 0");
-      this.triggerRelease(notes, computedTime + durationSeconds);
-    }
-    return this;
-  }
-  sync() {
-    if (this._syncState()) {
-      this._syncMethod("triggerAttack", 1);
-      this._syncMethod("triggerRelease", 1);
-      this.context.transport.on("stop", this._syncedRelease);
-      this.context.transport.on("pause", this._syncedRelease);
-      this.context.transport.on("loopEnd", this._syncedRelease);
-    }
-    return this;
-  }
-  /**
-   * Set a member/attribute of the voices
-   * @example
-   * const poly = new Tone.PolySynth().toDestination();
-   * // set all of the voices using an options object for the synth type
-   * poly.set({
-   * 	envelope: {
-   * 		attack: 0.25
-   * 	}
-   * });
-   * poly.triggerAttackRelease("Bb3", 0.2);
-   */
-  set(options) {
-    const sanitizedOptions = omitFromObject(options, ["onsilence", "context"]);
-    this.options = deepMerge(this.options, sanitizedOptions);
-    this._voices.forEach((voice) => voice.set(sanitizedOptions));
-    this._dummyVoice.set(sanitizedOptions);
-    return this;
-  }
-  get() {
-    return this._dummyVoice.get();
-  }
-  /**
-   * Trigger the release portion of all the currently active voices immediately.
-   * Useful for silencing the synth.
-   */
-  releaseAll(time) {
-    const computedTime = this.toSeconds(time);
-    this._activeVoices.forEach(({ voice }) => {
-      voice.triggerRelease(computedTime);
-    });
-    return this;
-  }
-  dispose() {
-    super.dispose();
-    this._dummyVoice.dispose();
-    this._voices.forEach((v2) => v2.dispose());
-    this._activeVoices = [];
-    this._availableVoices = [];
-    this.context.clearInterval(this._gcTimeout);
-    return this;
-  }
-}
 class Sampler extends Instrument {
   constructor() {
     super(optionsFromArguments(Sampler.getDefaults(), arguments, ["urls", "onload", "baseUrl"], "urls"));
@@ -16524,12 +16280,12 @@ class Sampler extends Instrument {
    * @param  time     When to play the note
    * @param  velocity The velocity to play the sample back.
    */
-  triggerAttack(notes, time, velocity = 1) {
-    this.log("triggerAttack", notes, time, velocity);
-    if (!Array.isArray(notes)) {
-      notes = [notes];
+  triggerAttack(notes2, time, velocity = 1) {
+    this.log("triggerAttack", notes2, time, velocity);
+    if (!Array.isArray(notes2)) {
+      notes2 = [notes2];
     }
-    notes.forEach((note) => {
+    notes2.forEach((note) => {
       const midiFloat = ftomf(new FrequencyClass(this.context, note).toFrequency());
       const midi = Math.round(midiFloat);
       const remainder = midiFloat - midi;
@@ -16566,12 +16322,12 @@ class Sampler extends Instrument {
    * @param  notes	The note to release, or an array of notes.
    * @param  time     	When to release the note.
    */
-  triggerRelease(notes, time) {
-    this.log("triggerRelease", notes, time);
-    if (!Array.isArray(notes)) {
-      notes = [notes];
+  triggerRelease(notes2, time) {
+    this.log("triggerRelease", notes2, time);
+    if (!Array.isArray(notes2)) {
+      notes2 = [notes2];
     }
-    notes.forEach((note) => {
+    notes2.forEach((note) => {
       const midi = new FrequencyClass(this.context, note).toMidi();
       if (this._activeSources.has(midi) && this._activeSources.get(midi).length) {
         const sources = this._activeSources.get(midi);
@@ -16612,17 +16368,17 @@ class Sampler extends Instrument {
    * @param  time     When to start the attack
    * @param  velocity The velocity of the attack
    */
-  triggerAttackRelease(notes, duration, time, velocity = 1) {
+  triggerAttackRelease(notes2, duration, time, velocity = 1) {
     const computedTime = this.toSeconds(time);
-    this.triggerAttack(notes, computedTime, velocity);
+    this.triggerAttack(notes2, computedTime, velocity);
     if (isArray(duration)) {
-      assert(isArray(notes), "notes must be an array when duration is array");
-      notes.forEach((note, index) => {
+      assert(isArray(notes2), "notes must be an array when duration is array");
+      notes2.forEach((note, index) => {
         const d2 = duration[Math.min(index, duration.length - 1)];
         this.triggerRelease(note, computedTime + this.toSeconds(d2));
       });
     } else {
-      this.triggerRelease(notes, computedTime + this.toSeconds(duration));
+      this.triggerRelease(notes2, computedTime + this.toSeconds(duration));
     }
     return this;
   }
@@ -16667,820 +16423,6 @@ __decorate([
 __decorate([
   timeRange(0)
 ], Sampler.prototype, "release", void 0);
-class ToneEvent extends ToneWithContext {
-  constructor() {
-    super(optionsFromArguments(ToneEvent.getDefaults(), arguments, ["callback", "value"]));
-    this.name = "ToneEvent";
-    this._state = new StateTimeline("stopped");
-    this._startOffset = 0;
-    const options = optionsFromArguments(ToneEvent.getDefaults(), arguments, ["callback", "value"]);
-    this._loop = options.loop;
-    this.callback = options.callback;
-    this.value = options.value;
-    this._loopStart = this.toTicks(options.loopStart);
-    this._loopEnd = this.toTicks(options.loopEnd);
-    this._playbackRate = options.playbackRate;
-    this._probability = options.probability;
-    this._humanize = options.humanize;
-    this.mute = options.mute;
-    this._playbackRate = options.playbackRate;
-    this._state.increasing = true;
-    this._rescheduleEvents();
-  }
-  static getDefaults() {
-    return Object.assign(ToneWithContext.getDefaults(), {
-      callback: noOp,
-      humanize: false,
-      loop: false,
-      loopEnd: "1m",
-      loopStart: 0,
-      mute: false,
-      playbackRate: 1,
-      probability: 1,
-      value: null
-    });
-  }
-  /**
-   * Reschedule all of the events along the timeline
-   * with the updated values.
-   * @param after Only reschedules events after the given time.
-   */
-  _rescheduleEvents(after = -1) {
-    this._state.forEachFrom(after, (event) => {
-      let duration;
-      if (event.state === "started") {
-        if (event.id !== -1) {
-          this.context.transport.clear(event.id);
-        }
-        const startTick = event.time + Math.round(this.startOffset / this._playbackRate);
-        if (this._loop === true || isNumber(this._loop) && this._loop > 1) {
-          duration = Infinity;
-          if (isNumber(this._loop)) {
-            duration = this._loop * this._getLoopDuration();
-          }
-          const nextEvent = this._state.getAfter(startTick);
-          if (nextEvent !== null) {
-            duration = Math.min(duration, nextEvent.time - startTick);
-          }
-          if (duration !== Infinity) {
-            duration = new TicksClass(this.context, duration);
-          }
-          const interval = new TicksClass(this.context, this._getLoopDuration());
-          event.id = this.context.transport.scheduleRepeat(this._tick.bind(this), interval, new TicksClass(this.context, startTick), duration);
-        } else {
-          event.id = this.context.transport.schedule(this._tick.bind(this), new TicksClass(this.context, startTick));
-        }
-      }
-    });
-  }
-  /**
-   * Returns the playback state of the note, either "started" or "stopped".
-   */
-  get state() {
-    return this._state.getValueAtTime(this.context.transport.ticks);
-  }
-  /**
-   * The start from the scheduled start time.
-   */
-  get startOffset() {
-    return this._startOffset;
-  }
-  set startOffset(offset) {
-    this._startOffset = offset;
-  }
-  /**
-   * The probability of the notes being triggered.
-   */
-  get probability() {
-    return this._probability;
-  }
-  set probability(prob) {
-    this._probability = prob;
-  }
-  /**
-   * If set to true, will apply small random variation
-   * to the callback time. If the value is given as a time, it will randomize
-   * by that amount.
-   * @example
-   * const event = new Tone.ToneEvent();
-   * event.humanize = true;
-   */
-  get humanize() {
-    return this._humanize;
-  }
-  set humanize(variation) {
-    this._humanize = variation;
-  }
-  /**
-   * Start the note at the given time.
-   * @param  time  When the event should start.
-   */
-  start(time) {
-    const ticks = this.toTicks(time);
-    if (this._state.getValueAtTime(ticks) === "stopped") {
-      this._state.add({
-        id: -1,
-        state: "started",
-        time: ticks
-      });
-      this._rescheduleEvents(ticks);
-    }
-    return this;
-  }
-  /**
-   * Stop the Event at the given time.
-   * @param  time  When the event should stop.
-   */
-  stop(time) {
-    this.cancel(time);
-    const ticks = this.toTicks(time);
-    if (this._state.getValueAtTime(ticks) === "started") {
-      this._state.setStateAtTime("stopped", ticks, { id: -1 });
-      const previousEvent = this._state.getBefore(ticks);
-      let rescheduleTime = ticks;
-      if (previousEvent !== null) {
-        rescheduleTime = previousEvent.time;
-      }
-      this._rescheduleEvents(rescheduleTime);
-    }
-    return this;
-  }
-  /**
-   * Cancel all scheduled events greater than or equal to the given time
-   * @param  time  The time after which events will be cancel.
-   */
-  cancel(time) {
-    time = defaultArg(time, -Infinity);
-    const ticks = this.toTicks(time);
-    this._state.forEachFrom(ticks, (event) => {
-      this.context.transport.clear(event.id);
-    });
-    this._state.cancel(ticks);
-    return this;
-  }
-  /**
-   * The callback function invoker. Also
-   * checks if the Event is done playing
-   * @param  time  The time of the event in seconds
-   */
-  _tick(time) {
-    const ticks = this.context.transport.getTicksAtTime(time);
-    if (!this.mute && this._state.getValueAtTime(ticks) === "started") {
-      if (this.probability < 1 && Math.random() > this.probability) {
-        return;
-      }
-      if (this.humanize) {
-        let variation = 0.02;
-        if (!isBoolean(this.humanize)) {
-          variation = this.toSeconds(this.humanize);
-        }
-        time += (Math.random() * 2 - 1) * variation;
-      }
-      this.callback(time, this.value);
-    }
-  }
-  /**
-   * Get the duration of the loop.
-   */
-  _getLoopDuration() {
-    return (this._loopEnd - this._loopStart) / this._playbackRate;
-  }
-  /**
-   * If the note should loop or not
-   * between ToneEvent.loopStart and
-   * ToneEvent.loopEnd. If set to true,
-   * the event will loop indefinitely,
-   * if set to a number greater than 1
-   * it will play a specific number of
-   * times, if set to false, 0 or 1, the
-   * part will only play once.
-   */
-  get loop() {
-    return this._loop;
-  }
-  set loop(loop) {
-    this._loop = loop;
-    this._rescheduleEvents();
-  }
-  /**
-   * The playback rate of the event. Defaults to 1.
-   * @example
-   * const note = new Tone.ToneEvent();
-   * note.loop = true;
-   * // repeat the note twice as fast
-   * note.playbackRate = 2;
-   */
-  get playbackRate() {
-    return this._playbackRate;
-  }
-  set playbackRate(rate) {
-    this._playbackRate = rate;
-    this._rescheduleEvents();
-  }
-  /**
-   * The loopEnd point is the time the event will loop
-   * if ToneEvent.loop is true.
-   */
-  get loopEnd() {
-    return new TicksClass(this.context, this._loopEnd).toSeconds();
-  }
-  set loopEnd(loopEnd) {
-    this._loopEnd = this.toTicks(loopEnd);
-    if (this._loop) {
-      this._rescheduleEvents();
-    }
-  }
-  /**
-   * The time when the loop should start.
-   */
-  get loopStart() {
-    return new TicksClass(this.context, this._loopStart).toSeconds();
-  }
-  set loopStart(loopStart) {
-    this._loopStart = this.toTicks(loopStart);
-    if (this._loop) {
-      this._rescheduleEvents();
-    }
-  }
-  /**
-   * The current progress of the loop interval.
-   * Returns 0 if the event is not started yet or
-   * it is not set to loop.
-   */
-  get progress() {
-    if (this._loop) {
-      const ticks = this.context.transport.ticks;
-      const lastEvent = this._state.get(ticks);
-      if (lastEvent !== null && lastEvent.state === "started") {
-        const loopDuration = this._getLoopDuration();
-        const progress = (ticks - lastEvent.time) % loopDuration;
-        return progress / loopDuration;
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
-    }
-  }
-  dispose() {
-    super.dispose();
-    this.cancel();
-    this._state.dispose();
-    return this;
-  }
-}
-class Part extends ToneEvent {
-  constructor() {
-    super(optionsFromArguments(Part.getDefaults(), arguments, ["callback", "events"]));
-    this.name = "Part";
-    this._state = new StateTimeline("stopped");
-    this._events = /* @__PURE__ */ new Set();
-    const options = optionsFromArguments(Part.getDefaults(), arguments, ["callback", "events"]);
-    this._state.increasing = true;
-    options.events.forEach((event) => {
-      if (isArray(event)) {
-        this.add(event[0], event[1]);
-      } else {
-        this.add(event);
-      }
-    });
-  }
-  static getDefaults() {
-    return Object.assign(ToneEvent.getDefaults(), {
-      events: []
-    });
-  }
-  /**
-   * Start the part at the given time.
-   * @param  time    When to start the part.
-   * @param  offset  The offset from the start of the part to begin playing at.
-   */
-  start(time, offset) {
-    const ticks = this.toTicks(time);
-    if (this._state.getValueAtTime(ticks) !== "started") {
-      offset = defaultArg(offset, this._loop ? this._loopStart : 0);
-      if (this._loop) {
-        offset = defaultArg(offset, this._loopStart);
-      } else {
-        offset = defaultArg(offset, 0);
-      }
-      const computedOffset = this.toTicks(offset);
-      this._state.add({
-        id: -1,
-        offset: computedOffset,
-        state: "started",
-        time: ticks
-      });
-      this._forEach((event) => {
-        this._startNote(event, ticks, computedOffset);
-      });
-    }
-    return this;
-  }
-  /**
-   * Start the event in the given event at the correct time given
-   * the ticks and offset and looping.
-   * @param  event
-   * @param  ticks
-   * @param  offset
-   */
-  _startNote(event, ticks, offset) {
-    ticks -= offset;
-    if (this._loop) {
-      if (event.startOffset >= this._loopStart && event.startOffset < this._loopEnd) {
-        if (event.startOffset < offset) {
-          ticks += this._getLoopDuration();
-        }
-        event.start(new TicksClass(this.context, ticks));
-      } else if (event.startOffset < this._loopStart && event.startOffset >= offset) {
-        event.loop = false;
-        event.start(new TicksClass(this.context, ticks));
-      }
-    } else if (event.startOffset >= offset) {
-      event.start(new TicksClass(this.context, ticks));
-    }
-  }
-  get startOffset() {
-    return this._startOffset;
-  }
-  set startOffset(offset) {
-    this._startOffset = offset;
-    this._forEach((event) => {
-      event.startOffset += this._startOffset;
-    });
-  }
-  /**
-   * Stop the part at the given time.
-   * @param  time  When to stop the part.
-   */
-  stop(time) {
-    const ticks = this.toTicks(time);
-    this._state.cancel(ticks);
-    this._state.setStateAtTime("stopped", ticks);
-    this._forEach((event) => {
-      event.stop(time);
-    });
-    return this;
-  }
-  /**
-   * Get/Set an Event's value at the given time.
-   * If a value is passed in and no event exists at
-   * the given time, one will be created with that value.
-   * If two events are at the same time, the first one will
-   * be returned.
-   * @example
-   * const part = new Tone.Part();
-   * part.at("1m"); // returns the part at the first measure
-   * part.at("2m", "C2"); // set the value at "2m" to C2.
-   * // if an event didn't exist at that time, it will be created.
-   * @param time The time of the event to get or set.
-   * @param value If a value is passed in, the value of the event at the given time will be set to it.
-   */
-  at(time, value) {
-    const timeInTicks = new TransportTimeClass(this.context, time).toTicks();
-    const tickTime = new TicksClass(this.context, 1).toSeconds();
-    const iterator = this._events.values();
-    let result = iterator.next();
-    while (!result.done) {
-      const event = result.value;
-      if (Math.abs(timeInTicks - event.startOffset) < tickTime) {
-        if (isDefined(value)) {
-          event.value = value;
-        }
-        return event;
-      }
-      result = iterator.next();
-    }
-    if (isDefined(value)) {
-      this.add(time, value);
-      return this.at(time);
-    } else {
-      return null;
-    }
-  }
-  add(time, value) {
-    if (time instanceof Object && Reflect.has(time, "time")) {
-      value = time;
-      time = value.time;
-    }
-    const ticks = this.toTicks(time);
-    let event;
-    if (value instanceof ToneEvent) {
-      event = value;
-      event.callback = this._tick.bind(this);
-    } else {
-      event = new ToneEvent({
-        callback: this._tick.bind(this),
-        context: this.context,
-        value
-      });
-    }
-    event.startOffset = ticks;
-    event.set({
-      humanize: this.humanize,
-      loop: this.loop,
-      loopEnd: this.loopEnd,
-      loopStart: this.loopStart,
-      playbackRate: this.playbackRate,
-      probability: this.probability
-    });
-    this._events.add(event);
-    this._restartEvent(event);
-    return this;
-  }
-  /**
-   * Restart the given event
-   */
-  _restartEvent(event) {
-    this._state.forEach((stateEvent) => {
-      if (stateEvent.state === "started") {
-        this._startNote(event, stateEvent.time, stateEvent.offset);
-      } else {
-        event.stop(new TicksClass(this.context, stateEvent.time));
-      }
-    });
-  }
-  remove(time, value) {
-    if (isObject(time) && time.hasOwnProperty("time")) {
-      value = time;
-      time = value.time;
-    }
-    time = this.toTicks(time);
-    this._events.forEach((event) => {
-      if (event.startOffset === time) {
-        if (isUndef(value) || isDefined(value) && event.value === value) {
-          this._events.delete(event);
-          event.dispose();
-        }
-      }
-    });
-    return this;
-  }
-  /**
-   * Remove all of the notes from the group.
-   */
-  clear() {
-    this._forEach((event) => event.dispose());
-    this._events.clear();
-    return this;
-  }
-  /**
-   * Cancel scheduled state change events: i.e. "start" and "stop".
-   * @param after The time after which to cancel the scheduled events.
-   */
-  cancel(after) {
-    this._forEach((event) => event.cancel(after));
-    this._state.cancel(this.toTicks(after));
-    return this;
-  }
-  /**
-   * Iterate over all of the events
-   */
-  _forEach(callback) {
-    if (this._events) {
-      this._events.forEach((event) => {
-        if (event instanceof Part) {
-          event._forEach(callback);
-        } else {
-          callback(event);
-        }
-      });
-    }
-    return this;
-  }
-  /**
-   * Set the attribute of all of the events
-   * @param  attr  the attribute to set
-   * @param  value      The value to set it to
-   */
-  _setAll(attr, value) {
-    this._forEach((event) => {
-      event[attr] = value;
-    });
-  }
-  /**
-   * Internal tick method
-   * @param  time  The time of the event in seconds
-   */
-  _tick(time, value) {
-    if (!this.mute) {
-      this.callback(time, value);
-    }
-  }
-  /**
-   * Determine if the event should be currently looping
-   * given the loop boundries of this Part.
-   * @param  event  The event to test
-   */
-  _testLoopBoundries(event) {
-    if (this._loop && (event.startOffset < this._loopStart || event.startOffset >= this._loopEnd)) {
-      event.cancel(0);
-    } else if (event.state === "stopped") {
-      this._restartEvent(event);
-    }
-  }
-  get probability() {
-    return this._probability;
-  }
-  set probability(prob) {
-    this._probability = prob;
-    this._setAll("probability", prob);
-  }
-  get humanize() {
-    return this._humanize;
-  }
-  set humanize(variation) {
-    this._humanize = variation;
-    this._setAll("humanize", variation);
-  }
-  /**
-   * If the part should loop or not
-   * between Part.loopStart and
-   * Part.loopEnd. If set to true,
-   * the part will loop indefinitely,
-   * if set to a number greater than 1
-   * it will play a specific number of
-   * times, if set to false, 0 or 1, the
-   * part will only play once.
-   * @example
-   * const part = new Tone.Part();
-   * // loop the part 8 times
-   * part.loop = 8;
-   */
-  get loop() {
-    return this._loop;
-  }
-  set loop(loop) {
-    this._loop = loop;
-    this._forEach((event) => {
-      event.loopStart = this.loopStart;
-      event.loopEnd = this.loopEnd;
-      event.loop = loop;
-      this._testLoopBoundries(event);
-    });
-  }
-  /**
-   * The loopEnd point determines when it will
-   * loop if Part.loop is true.
-   */
-  get loopEnd() {
-    return new TicksClass(this.context, this._loopEnd).toSeconds();
-  }
-  set loopEnd(loopEnd) {
-    this._loopEnd = this.toTicks(loopEnd);
-    if (this._loop) {
-      this._forEach((event) => {
-        event.loopEnd = loopEnd;
-        this._testLoopBoundries(event);
-      });
-    }
-  }
-  /**
-   * The loopStart point determines when it will
-   * loop if Part.loop is true.
-   */
-  get loopStart() {
-    return new TicksClass(this.context, this._loopStart).toSeconds();
-  }
-  set loopStart(loopStart) {
-    this._loopStart = this.toTicks(loopStart);
-    if (this._loop) {
-      this._forEach((event) => {
-        event.loopStart = this.loopStart;
-        this._testLoopBoundries(event);
-      });
-    }
-  }
-  /**
-   * The playback rate of the part
-   */
-  get playbackRate() {
-    return this._playbackRate;
-  }
-  set playbackRate(rate) {
-    this._playbackRate = rate;
-    this._setAll("playbackRate", rate);
-  }
-  /**
-   * The number of scheduled notes in the part.
-   */
-  get length() {
-    return this._events.size;
-  }
-  dispose() {
-    super.dispose();
-    this.clear();
-    return this;
-  }
-}
-class Sequence extends ToneEvent {
-  constructor() {
-    super(optionsFromArguments(Sequence.getDefaults(), arguments, ["callback", "events", "subdivision"]));
-    this.name = "Sequence";
-    this._part = new Part({
-      callback: this._seqCallback.bind(this),
-      context: this.context
-    });
-    this._events = [];
-    this._eventsArray = [];
-    const options = optionsFromArguments(Sequence.getDefaults(), arguments, ["callback", "events", "subdivision"]);
-    this._subdivision = this.toTicks(options.subdivision);
-    this.events = options.events;
-    this.loop = options.loop;
-    this.loopStart = options.loopStart;
-    this.loopEnd = options.loopEnd;
-    this.playbackRate = options.playbackRate;
-    this.probability = options.probability;
-    this.humanize = options.humanize;
-    this.mute = options.mute;
-    this.playbackRate = options.playbackRate;
-  }
-  static getDefaults() {
-    return Object.assign(omitFromObject(ToneEvent.getDefaults(), ["value"]), {
-      events: [],
-      loop: true,
-      loopEnd: 0,
-      loopStart: 0,
-      subdivision: "8n"
-    });
-  }
-  /**
-   * The internal callback for when an event is invoked
-   */
-  _seqCallback(time, value) {
-    if (value !== null && !this.mute) {
-      this.callback(time, value);
-    }
-  }
-  /**
-   * The sequence
-   */
-  get events() {
-    return this._events;
-  }
-  set events(s2) {
-    this.clear();
-    this._eventsArray = s2;
-    this._events = this._createSequence(this._eventsArray);
-    this._eventsUpdated();
-  }
-  /**
-   * Start the part at the given time.
-   * @param  time    When to start the part.
-   * @param  offset  The offset index to start at
-   */
-  start(time, offset) {
-    this._part.start(time, offset ? this._indexTime(offset) : offset);
-    return this;
-  }
-  /**
-   * Stop the part at the given time.
-   * @param  time  When to stop the part.
-   */
-  stop(time) {
-    this._part.stop(time);
-    return this;
-  }
-  /**
-   * The subdivision of the sequence. This can only be
-   * set in the constructor. The subdivision is the
-   * interval between successive steps.
-   */
-  get subdivision() {
-    return new TicksClass(this.context, this._subdivision).toSeconds();
-  }
-  /**
-   * Create a sequence proxy which can be monitored to create subsequences
-   */
-  _createSequence(array) {
-    return new Proxy(array, {
-      get: (target, property) => {
-        return target[property];
-      },
-      set: (target, property, value) => {
-        if (isString(property) && isFinite(parseInt(property, 10))) {
-          if (isArray(value)) {
-            target[property] = this._createSequence(value);
-          } else {
-            target[property] = value;
-          }
-        } else {
-          target[property] = value;
-        }
-        this._eventsUpdated();
-        return true;
-      }
-    });
-  }
-  /**
-   * When the sequence has changed, all of the events need to be recreated
-   */
-  _eventsUpdated() {
-    this._part.clear();
-    this._rescheduleSequence(this._eventsArray, this._subdivision, this.startOffset);
-    this.loopEnd = this.loopEnd;
-  }
-  /**
-   * reschedule all of the events that need to be rescheduled
-   */
-  _rescheduleSequence(sequence, subdivision, startOffset) {
-    sequence.forEach((value, index) => {
-      const eventOffset = index * subdivision + startOffset;
-      if (isArray(value)) {
-        this._rescheduleSequence(value, subdivision / value.length, eventOffset);
-      } else {
-        const startTime = new TicksClass(this.context, eventOffset, "i").toSeconds();
-        this._part.add(startTime, value);
-      }
-    });
-  }
-  /**
-   * Get the time of the index given the Sequence's subdivision
-   * @param  index
-   * @return The time of that index
-   */
-  _indexTime(index) {
-    return new TicksClass(this.context, index * this._subdivision + this.startOffset).toSeconds();
-  }
-  /**
-   * Clear all of the events
-   */
-  clear() {
-    this._part.clear();
-    return this;
-  }
-  dispose() {
-    super.dispose();
-    this._part.dispose();
-    return this;
-  }
-  //-------------------------------------
-  // PROXY CALLS
-  //-------------------------------------
-  get loop() {
-    return this._part.loop;
-  }
-  set loop(l2) {
-    this._part.loop = l2;
-  }
-  /**
-   * The index at which the sequence should start looping
-   */
-  get loopStart() {
-    return this._loopStart;
-  }
-  set loopStart(index) {
-    this._loopStart = index;
-    this._part.loopStart = this._indexTime(index);
-  }
-  /**
-   * The index at which the sequence should end looping
-   */
-  get loopEnd() {
-    return this._loopEnd;
-  }
-  set loopEnd(index) {
-    this._loopEnd = index;
-    if (index === 0) {
-      this._part.loopEnd = this._indexTime(this._eventsArray.length);
-    } else {
-      this._part.loopEnd = this._indexTime(index);
-    }
-  }
-  get startOffset() {
-    return this._part.startOffset;
-  }
-  set startOffset(start) {
-    this._part.startOffset = start;
-  }
-  get playbackRate() {
-    return this._part.playbackRate;
-  }
-  set playbackRate(rate) {
-    this._part.playbackRate = rate;
-  }
-  get probability() {
-    return this._part.probability;
-  }
-  set probability(prob) {
-    this._part.probability = prob;
-  }
-  get progress() {
-    return this._part.progress;
-  }
-  get humanize() {
-    return this._part.humanize;
-  }
-  set humanize(variation) {
-    this._part.humanize = variation;
-  }
-  /**
-   * The number of scheduled events
-   */
-  get length() {
-    return this._part.length;
-  }
-}
 class Panner extends ToneAudioNode {
   constructor() {
     super(Object.assign(optionsFromArguments(Panner.getDefaults(), arguments, ["pan"])));
@@ -17856,12 +16798,12 @@ onContextInit((context) => {
 onContextClose((context) => {
   context.listener.dispose();
 });
-function now$1() {
-  return getContext().now();
-}
 const Transport2 = getContext().transport;
 getContext().destination;
 getContext().destination;
+function getDestination() {
+  return getContext().destination;
+}
 getContext().listener;
 getContext().draw;
 getContext();
@@ -17894,17 +16836,22 @@ const Timeline2 = (element) => {
     </div>`;
   B(renderHTML, element);
 };
+const notes = ["F4", "Eb4", "C4", "Bb3", "Ab3", "F3"];
+const numRows = notes.length;
+const numCols = 8;
+const noteInterval = `${numCols}n`;
 const state = {
   bpm: 130
 };
+Time(noteInterval).toSeconds();
 const app = $("#app");
-const appTemplate = x`
-<main>
+const appTemplate = x` <main>
   <div id="board">
     <div id="top-row">
       <div id="beats-per-minute"></div>
     </div>
     <div id="timeline"></div>
+    <div id="sequencer"></div>
     <div id="bottom-row">
       <button class="play-pause material-symbols-rounded" id="play-pause">
         play_arrow
@@ -17913,40 +16860,135 @@ const appTemplate = x`
   </div>
 </main>`;
 B(appTemplate, app);
-const synth = new PolySynth(Synth).toDestination();
-const now = now$1();
-const seq = new Sequence(
-  (time, note) => {
-    synth.triggerAttackRelease(note, 0.1, time);
-    console.log(time);
-    console.log(note);
-    console.log(seq.progress);
-  },
-  [["E4", "D4", "E4"], ["E4"], "G4", ["A4", "G4"]]
-).start(0);
-console.log(seq);
-const playPause = $("#play-pause");
-playPause.addEventListener("click", () => {
-  console.log(now);
-  const state2 = Transport2.state;
-  switch (state2) {
-    case "started":
-      Transport2.pause();
-      playPause.innerHTML = `play_arrow`;
-      console.log(state2);
-      break;
-    case "stopped":
-      Transport2.start();
-      playPause.innerHTML = `pause`;
-      console.log(state2);
-      break;
-    default:
-      Transport2.start();
-      playPause.innerHTML = `pause`;
-      console.log(state2);
-      break;
+const makeSynths = (count) => {
+  const synths2 = [];
+  for (let i2 = 0; i2 < count; i2++) {
+    let synth = new Synth({
+      oscillator: { type: "square8" }
+    }).toDestination();
+    synths2.push(synth);
   }
+  return synths2;
+};
+const makeGrid = (notes2) => {
+  const rows = [];
+  for (const note of notes2) {
+    const row = [];
+    for (let i2 = 0; i2 < numCols; i2++) {
+      row.push({
+        note,
+        isActive: false,
+        activeCol: false,
+        index: i2
+      });
+    }
+    rows.push(row);
+  }
+  return rows;
+};
+const synths = makeSynths(numRows);
+let beat = 0;
+let grid = makeGrid(notes);
+let playing = false;
+let started = false;
+const configLoop = () => {
+  const repeat = (time) => {
+    Transport2.seconds - time;
+    $$("#rowIndex");
+    const allButtons = $$(".note");
+    allButtons.forEach((button) => {
+      const index = button.getAttribute("data-index");
+      if (index === beat.toString()) {
+        button.setAttribute("data-column-active", "true");
+      } else {
+        button.setAttribute("data-column-active", "false");
+      }
+    });
+    console.log(allButtons);
+    console.log(beat);
+    grid.forEach((row, index) => {
+      let synth = synths[index];
+      let note = row[beat];
+      handleActiveColumn(row);
+      let rowPerNote = $name(note.note);
+      rowPerNote[note.index];
+      if (note.isActive) {
+        synth.triggerAttackRelease(note.note, noteInterval, time);
+      }
+    });
+    beat = (beat + 1) % 8;
+    console.log(beat);
+  };
+  Transport2.scheduleRepeat(repeat, noteInterval);
+};
+const handleActiveColumn = (currentRowIndex, currentNote, button) => {
+  grid.forEach((row, rowIndex) => {
+    row.forEach((note, noteIndex) => {
+      if (currentRowIndex === rowIndex || currentNote === noteIndex) {
+        note.activeCol = !note.activeCol;
+      }
+    });
+  });
+};
+const sequencer = document.getElementById("sequencer");
+const makeSequencer = () => {
+  grid.forEach((row, rowIndex) => {
+    const seqRow = document.createElement("div");
+    seqRow.id = `rowIndex`;
+    seqRow.className = "sequencer-row";
+    row.forEach((note, noteIndex) => {
+      const button = document.createElement("button");
+      button.className = "note";
+      button.setAttribute("name", note.note);
+      button.setAttribute("data-index", note.index);
+      button.classList.add(noteIndex);
+      button.addEventListener("click", function(e2) {
+        handleNoteClick(rowIndex, noteIndex, e2);
+      });
+      seqRow.appendChild(button);
+    });
+    sequencer.appendChild(seqRow);
+  });
+};
+const handleNoteClick = (clickedRowIndex, clickedNoteIndex, e2) => {
+  grid.forEach((row, rowIndex) => {
+    row.forEach((note, noteIndex) => {
+      if (clickedRowIndex === rowIndex && clickedNoteIndex === noteIndex) {
+        note.isActive = !note.isActive;
+        e2.target.className = classNames(
+          "note",
+          { "note-is-active": !!note.isActive },
+          { "note-not-active": !note.isActive }
+        );
+      }
+    });
+  });
+};
+const configPlayButton = () => {
+  const playPause = $("#play-pause");
+  playPause.addEventListener("click", (e2) => {
+    Transport2.state;
+    if (!started) {
+      start();
+      getDestination().volume.rampTo(-10, 1e-3);
+      configLoop();
+      started = true;
+    }
+    if (playing) {
+      e2.target.innerText = "play_arrow";
+      Transport2.stop();
+      playing = false;
+    } else {
+      e2.target.innerText = "pause";
+      Transport2.start();
+      playing = true;
+    }
+  });
+};
+window.addEventListener("DOMContentLoaded", () => {
+  setupBPM($("#beats-per-minute"), state.bpm);
+  Timeline2($("#timeline"));
+  configPlayButton();
+  makeSequencer();
 });
-setupBPM($("#beats-per-minute"), state.bpm);
-Timeline2($("#timeline"));
-//# sourceMappingURL=index-917f33ac.js.map
+//# sourceMappingURL=index-20c12b8c.js.map

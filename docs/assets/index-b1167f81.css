@@ -1,4 +1,40 @@
-:root {
+#board {
+  width: 100%;
+}
+
+.top-row {
+  display: flex;
+  gap: 1em;
+}
+
+#timeline {
+  min-width: 70cqw;
+  min-height: 20em;
+}
+
+#bottom-row, #top-row {
+  padding: 1em;
+}
+
+.sequencer {
+  display: grid;
+}
+
+button.note {
+  transition: all 200ms ease-in-out;
+}
+
+button.note.note-is-active {
+  background-color: #000;
+}
+
+button.note.row-is-active {
+  background-color: gray;
+}
+
+button[data-column-active=true] {
+  border: 1px solid red;
+}:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -145,21 +181,4 @@ button:focus.material-symbols-rounded,
 button:focus-visible.material-symbols-rounded {
   outline: 4px auto -webkit-focus-ring-color;
   border-radius: 100%;
-}
-#board {
-  width: 100%;
-}
-
-.top-row {
-  display: flex;
-  gap: 1em;
-}
-
-#timeline {
-  min-width: 70cqw;
-  min-height: 30em;
-}
-
-#bottom-row, #top-row {
-  padding: 1em;
 }
