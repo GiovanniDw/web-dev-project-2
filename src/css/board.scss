@@ -28,7 +28,9 @@
 
 
 button.note {
-  transition: all 200ms ease-in-out;
+  height: 3em;
+  width: 3em;
+  transition: all 100ms ease-in-out;
 }
 
 button.note.note-is-active {
@@ -41,6 +43,19 @@ button.note.row-is-active {
 
 button[data-column-active="true"] {
 
-border: 1px solid red;
+// border: 1px solid red;
+transform: scale(1.1);
+
+}
+
+#sequencer {
+  display: grid;
+  gap: 1em;
+
+}
+#rowIndex {
+  display: flex;
+  // justify-content: space-between;
+  gap: 1em;
 
 }

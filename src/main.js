@@ -42,7 +42,6 @@ const appTemplate = html` <main>
     <div id="top-row">
       <div id="beats-per-minute"></div>
     </div>
-    <div id="timeline"></div>
     <div id="sequencer"></div>
     <div id="bottom-row">
       <button class="play-pause material-symbols-rounded" id="play-pause">
@@ -175,11 +174,8 @@ const configLoop = () => {
   // This is our callback function. It will execute repeatedly
   const repeat = (time) => {
     const secondsElapsed = Tone.Transport.seconds - time;
-  const currentNote = Math.floor(secondsElapsed / secondsPerNote);
   
-  let getRows = $$('#rowIndex');
   const allButtons = $$('.note');
-
   allButtons.forEach(button => {
     const index = button.getAttribute('data-index');
     if (index === beat.toString()) {
@@ -189,127 +185,24 @@ const configLoop = () => {
     }
   });
 
-console.log(allButtons)
-
-
-
-// console.log(getRows)
-console.log(beat)
-
-// getRows.forEach((row, index) => {
-//   let note = row[beat];
-//   // Select the first button in each row
-//   const activeRow = row.querySelectorAll('.note');
-
-  
-
-
-
-
-// activeRow.forEach(element => {
-//   // console.log(element)
-// });
-
-
-//     if (beat === index) {
-//       // activeRow.setAttribute('data-column-active', 'true' );
-      
-//     } else {
-//       // activeRow.setAttribute('data-column-active', 'false' );
-//     }
-
-//   // Do something with the first button
-  
-// });
-
-
-
-
     grid.forEach((row, index) => {
-      // console.log(row)
-      // console.log(`grid index ${index}`)
-      // console.log(`grid row ${row}`)
-      
-
-      // console.log(row)
       // as the index increments we are moving *down* the rows
       // One note per row and one synth per note means that each row corresponds to a synth
       let synth = synths[index];
       // beat is used to keep track of what subdivision we are on
       // there are eight *beats* or subdivisions for this sequencer
       let note = row[beat];
-      // console.log(note)
-
-
-
-
-
-
       
-      // console.log(getRows)
-      // rowPerNote.querySelectorAll('.note');
-
-
-
-      handleActiveColumn(row);
-      // console.log(note.index)
-      // console.log(row[index].index)
-      let rowPerNote = $name(note.note);
-      // console.log(rowPerNote);
-      // const gain = new Tone.Gain();
-      // console.log(synth.toTicks(noteInterval));
-      let noteIndexElement = rowPerNote[note.index];
-
-
-
-
-      // console.log(rowPerNote)
-  //     row.forEach((note, noteIndex) => {
-      
-  //       // console.log(`row note index ${noteIndex}`)
-  //       // console.log(`row note ${note.index}`)
-        
-  //       // console.log(note);
-  //       // console.log(noteIndex);
-
-  //       if (note.index.toString() === row[index].index.toString()) {
-  //         note.activeCol = !note.activeCol;
-  //         // console.log(rowPerNote[index]);
-  //         // noteIndexElement.forEach(element => {
-  //         //   element.setAttribute('data-column-active', note.activeCol);
-  //         // });  
-  // // console.log(noteIndexElement)
-  //         // $('.note').target.className = classNames(
-  //         //   "note",
-  //         //     { "note-col-is-active": !!note.activeCol },
-  //         //     { "note-col-is-not-active": !note.activeCol }
-  //         // )
-  //       } else {
-  //         // console.log('false');
-  //         noteIndexElement.setAttribute('data-column-active', 'false' );
-  //         // note.activeCol === false
-  //       }
-
-
-
-  //     });
-
-    
-
       if (note.isActive) {
         // triggerAttackRelease() plays a specific pitch for a specific duration
         // documentation can be found here:
         // https://tonejs.github.io/docs/14.7.77/Synth#triggerAttackRelease
 
         synth.triggerAttackRelease(note.note, noteInterval, time);
-        
       }
-      
     });
     // increment the counter
     beat = (beat + 1) % 8;
-    
-    console.log(beat)
   };
 
   
@@ -321,22 +214,6 @@ console.log(beat)
   
   // console.log(Tone.Transport.toTicks(noteInterval) / 8);
 
-};
-
-const handleActiveColumn = (currentRowIndex, currentNote, button) => {
-  grid.forEach((row, rowIndex) => {
-    row.forEach((note, noteIndex) => {
-      // console.log(`${currentRowIndex[noteIndex].note} & ${noteIndex}`);
-      if (currentRowIndex === rowIndex || currentNote === noteIndex) {
-        note.activeCol = !note.activeCol;
-        // e.target.className = classNames(
-        //   "note",
-        //   { "note-col-is-active": !!note.activeCol },
-        //   { "note-col-is-not-active": !note.activeCol }
-        // );
-      }
-    });
-  });
 };
 
 // grid is a global variable declared prior to the execution of makeSequencer()
@@ -355,7 +232,7 @@ const makeSequencer = () => {
 
     // iterate through each note in the row
     row.forEach((note, noteIndex) => {
-      // console.log(noteIndex)
+      
 
       // create a button for each note
       const button = document.createElement('button');
@@ -363,17 +240,6 @@ const makeSequencer = () => {
       button.setAttribute('name', note.note);
       button.setAttribute('data-index', note.index);
       button.classList.add(noteIndex);
-
-      // if (noteIndex) {
-      //   button.classList.add('activeCol')
-      // } else {
-      //   button.classList.remove('activeCol')
-      // }
-      // handleActiveColumn(rowIndex, note.note, button);
-      // console.log(button)
-      // button.addEventListener('trigger', () => {
-
-      // })
 
       // handleNoteClick() to be defined in a little bit
       button.addEventListener('click', function (e) {
@@ -392,21 +258,6 @@ const makeSequencer = () => {
 };
 
 const handleNoteClick = (clickedRowIndex, clickedNoteIndex, e) => {
-  grid.forEach((row, rowIndex) => {
-    row.forEach((note, noteIndex) => {
-      if (clickedRowIndex === rowIndex && clickedNoteIndex === noteIndex) {
-        note.isActive = !note.isActive;
-        e.target.className = classNames(
-          'note',
-          { 'note-is-active': !!note.isActive },
-          { 'note-not-active': !note.isActive }
-        );
-      }
-    });
-  });
-};
-
-const handleActiveNote = (clickedRowIndex, clickedNoteIndex, e) => {
   grid.forEach((row, rowIndex) => {
     row.forEach((note, noteIndex) => {
       if (clickedRowIndex === rowIndex && clickedNoteIndex === noteIndex) {
@@ -463,7 +314,7 @@ const configPlayButton = () => {
 
 window.addEventListener('DOMContentLoaded', () => {
   setupBPM($('#beats-per-minute'), state.bpm);
-  Timeline($('#timeline'));
+  // Timeline($('#timeline'));
   configPlayButton();
   makeSequencer();
 });
