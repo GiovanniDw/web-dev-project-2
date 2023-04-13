@@ -26,10 +26,21 @@
 
 }
 
+
+button.note {
+  transition: all 200ms ease-in-out;
+}
+
 button.note.note-is-active {
   background-color: #000;
 }
 
 button.note.row-is-active {
   background-color: gray;
+}
+
+button[data-column-active="true"] {
+
+border: 1px solid red;
+
 }
