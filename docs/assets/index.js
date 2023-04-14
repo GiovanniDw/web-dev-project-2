@@ -15969,6 +15969,137 @@ class Synth extends Monophonic {
     return this;
   }
 }
+class ModulationSynth extends Monophonic {
+  constructor() {
+    super(optionsFromArguments(ModulationSynth.getDefaults(), arguments));
+    this.name = "ModulationSynth";
+    const options = optionsFromArguments(ModulationSynth.getDefaults(), arguments);
+    this._carrier = new Synth({
+      context: this.context,
+      oscillator: options.oscillator,
+      envelope: options.envelope,
+      onsilence: () => this.onsilence(this),
+      volume: -10
+    });
+    this._modulator = new Synth({
+      context: this.context,
+      oscillator: options.modulation,
+      envelope: options.modulationEnvelope,
+      volume: -10
+    });
+    this.oscillator = this._carrier.oscillator;
+    this.envelope = this._carrier.envelope;
+    this.modulation = this._modulator.oscillator;
+    this.modulationEnvelope = this._modulator.envelope;
+    this.frequency = new Signal({
+      context: this.context,
+      units: "frequency"
+    });
+    this.detune = new Signal({
+      context: this.context,
+      value: options.detune,
+      units: "cents"
+    });
+    this.harmonicity = new Multiply({
+      context: this.context,
+      value: options.harmonicity,
+      minValue: 0
+    });
+    this._modulationNode = new Gain({
+      context: this.context,
+      gain: 0
+    });
+    readOnly(this, ["frequency", "harmonicity", "oscillator", "envelope", "modulation", "modulationEnvelope", "detune"]);
+  }
+  static getDefaults() {
+    return Object.assign(Monophonic.getDefaults(), {
+      harmonicity: 3,
+      oscillator: Object.assign(omitFromObject(OmniOscillator.getDefaults(), [
+        ...Object.keys(Source.getDefaults()),
+        "frequency",
+        "detune"
+      ]), {
+        type: "sine"
+      }),
+      envelope: Object.assign(omitFromObject(Envelope.getDefaults(), Object.keys(ToneAudioNode.getDefaults())), {
+        attack: 0.01,
+        decay: 0.01,
+        sustain: 1,
+        release: 0.5
+      }),
+      modulation: Object.assign(omitFromObject(OmniOscillator.getDefaults(), [
+        ...Object.keys(Source.getDefaults()),
+        "frequency",
+        "detune"
+      ]), {
+        type: "square"
+      }),
+      modulationEnvelope: Object.assign(omitFromObject(Envelope.getDefaults(), Object.keys(ToneAudioNode.getDefaults())), {
+        attack: 0.5,
+        decay: 0,
+        sustain: 1,
+        release: 0.5
+      })
+    });
+  }
+  /**
+   * Trigger the attack portion of the note
+   */
+  _triggerEnvelopeAttack(time, velocity) {
+    this._carrier._triggerEnvelopeAttack(time, velocity);
+    this._modulator._triggerEnvelopeAttack(time, velocity);
+  }
+  /**
+   * Trigger the release portion of the note
+   */
+  _triggerEnvelopeRelease(time) {
+    this._carrier._triggerEnvelopeRelease(time);
+    this._modulator._triggerEnvelopeRelease(time);
+    return this;
+  }
+  getLevelAtTime(time) {
+    time = this.toSeconds(time);
+    return this.envelope.getValueAtTime(time);
+  }
+  dispose() {
+    super.dispose();
+    this._carrier.dispose();
+    this._modulator.dispose();
+    this.frequency.dispose();
+    this.detune.dispose();
+    this.harmonicity.dispose();
+    this._modulationNode.dispose();
+    return this;
+  }
+}
+class FMSynth extends ModulationSynth {
+  constructor() {
+    super(optionsFromArguments(FMSynth.getDefaults(), arguments));
+    this.name = "FMSynth";
+    const options = optionsFromArguments(FMSynth.getDefaults(), arguments);
+    this.modulationIndex = new Multiply({
+      context: this.context,
+      value: options.modulationIndex
+    });
+    this.frequency.connect(this._carrier.frequency);
+    this.frequency.chain(this.harmonicity, this._modulator.frequency);
+    this.frequency.chain(this.modulationIndex, this._modulationNode);
+    this.detune.fan(this._carrier.detune, this._modulator.detune);
+    this._modulator.connect(this._modulationNode.gain);
+    this._modulationNode.connect(this._carrier.frequency);
+    this._carrier.connect(this.output);
+  }
+  static getDefaults() {
+    return Object.assign(ModulationSynth.getDefaults(), {
+      modulationIndex: 10
+    });
+  }
+  dispose() {
+    super.dispose();
+    this.modulationIndex.dispose();
+    return this;
+  }
+}
 class MembraneSynth extends Synth {
   constructor() {
     super(optionsFromArguments(MembraneSynth.getDefaults(), arguments));
@@ -16854,11 +16985,12 @@ B(appTemplate, app);
 const makeSynths = (count) => {
   const synths2 = [];
   for (let i2 = 0; i2 < count; i2++) {
-    let synth = new Synth({
-      oscillator: { type: "square8" }
+    let synth = new FMSynth({
+      oscillator: { type: "sine" }
     }).toDestination();
     synths2.push(synth);
   }
+  console.log(synths2);
   return synths2;
 };
 const makeGrid = (notes2) => {
@@ -16941,21 +17073,21 @@ const handleNoteClick = (clickedRowIndex, clickedNoteIndex, e2) => {
 };
 const configPlayButton = () => {
   const playPause = $("#play-pause");
-  playPause.addEventListener("click", (e2) => {
+  playPause.addEventListener("click", async (e2) => {
     Transport2.state;
     if (!started) {
-      start();
+      await start();
       getDestination().volume.rampTo(-10, 1e-3);
       configLoop();
       started = true;
     }
     if (playing) {
       e2.target.innerText = "play_arrow";
-      Transport2.stop();
+      await Transport2.stop();
       playing = false;
     } else {
       e2.target.innerText = "pause";
-      Transport2.start();
+      await Transport2.start();
       playing = true;
     }
   });
@@ -16965,4 +17097,4 @@ window.addEventListener("DOMContentLoaded", () => {
   configPlayButton();
   makeSequencer();
 });
-//# sourceMappingURL=index-6335465e.js.map
+//# sourceMappingURL=index.js.map

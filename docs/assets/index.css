@@ -34,6 +34,14 @@ button.note.row-is-active {
   background-color: gray;
 }
 
+button.row-is-active[data-column-active=true] {
+  transform: scale(1.5);
+}
+
+button.note.row-is-active {
+  background-color: gray;
+}
+
 button[data-column-active=true] {
   transform: scale(1.1);
 }
