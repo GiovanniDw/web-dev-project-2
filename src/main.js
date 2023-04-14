@@ -1,6 +1,10 @@
 import '@/css/board.scss';
 import '@/css/main.css';
 
+import crash from '@/assets/crash.mp3';
+import kick from '@/assets/kick.mp3';
+import snare from '@/assets/snare.mp3';
+
 import { customElement, property } from 'lit/decorators.js';
 import { html, render } from 'lit-html';
 import classNames from 'classnames';
@@ -114,12 +118,12 @@ const makeSynths = (count) => {
     // Demo different oscillator settings here:
     // https://tonejs.github.io/examples/oscillator
 
-    let synth = new Tone.Synth({
-      oscillator: { type: 'square8' },
+    let synth = new Tone.FMSynth({
+      oscillator: { type: 'sine' },
     }).toDestination();
     synths.push(synth);
   }
-
+console.log(synths)
   return synths;
 };
 
@@ -275,11 +279,11 @@ const handleNoteClick = (clickedRowIndex, clickedNoteIndex, e) => {
 const configPlayButton = () => {
   const playPause = $('#play-pause');
 
-  playPause.addEventListener('click', (e) => {
+  playPause.addEventListener('click', async (e) => {
     // Tone.Transport.toggle();
     const state = Tone.Transport.state;
     if (!started) {
-      Tone.start();
+      await Tone.start();
       Tone.getDestination().volume.rampTo(-10, 0.001);
       configLoop();
       started = true;
@@ -287,11 +291,11 @@ const configPlayButton = () => {
 
     if (playing) {
       e.target.innerText = 'play_arrow';
-      Tone.Transport.stop();
+      await Tone.Transport.stop();
       playing = false;
     } else {
       e.target.innerText = 'pause';
-      Tone.Transport.start();
+      await Tone.Transport.start();
       playing = true;
     }
 

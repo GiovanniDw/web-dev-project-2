@@ -41,6 +41,12 @@ button.note.row-is-active {
   background-color: gray;
 }
 
+button[data-column-active="true"]:has(.row-is-active) {
+  transform: scale(1.5);
+}
+button.note.row-is-active {
+  background-color: gray;
+}
 button[data-column-active="true"] {
 
 // border: 1px solid red;
