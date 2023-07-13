@@ -1,4 +1,4 @@
-import '@/css/board.scss';
+import '@/css/board.css';
 import '@/css/main.css';
 
 import crash from '@/assets/crash.mp3';

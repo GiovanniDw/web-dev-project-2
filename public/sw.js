@@ -2,8 +2,8 @@ const CORE_CACHE_NAME = 'cache-v3';
 const RUNTIME_CACHE_NAME = 'runtime-cache';
 const CORE_ASSETS = [
   '/',
-  '/index.css',
-  '/index.js',
+  '/assets/index.css',
+  'assets/index.js',
 ]
 
 self.addEventListener("install", (event) => {
